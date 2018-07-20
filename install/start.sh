@@ -1,2 +1,2 @@
-#!/bin/bas#!/bin/bashh
+#!/bin/bash
 vagrant up --provider hyperv
