@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
     # Display the hyperv when booting the machine
     #hv.gui = true
     #   # Customize the amount of memory on the VM:
-    hv.memory = 8192
+    hv.memory = 2048 #8192
     hv.cpus = 2
   end
   #
