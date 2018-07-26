@@ -24,7 +24,10 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #config.vm.network "forwarded_port", guest: 8080, host: 8080
+  for i in 1024..9000
+    config.vm.network :forwarded_port, guest: i, host: i
+  end
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -61,30 +64,23 @@ Vagrant.configure("2") do |config|
   # end
   
   # copy install
-  config.vm.provision "file", source: "./install.sh", destination: "/home/vagrant/install.sh"
+  config.vm.provision "file", source: "./scripts/install-global.sh", destination: "/home/vagrant/install/install-global.sh"
+  config.vm.provision "file", source: "./scripts/install-vagrant-user.sh", destination: "/home/vagrant/install/install-vagrant-user.sh"
+  config.vm.provision "file", source: "./scripts/runPlayground.sh", destination: "/home/vagrant/runPlayground.sh"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-     #install docker
-     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-     apt-get update     
-     apt-get install -y docker-ce
-     usermod -aG docker vagrant
-     curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-     chmod +x /usr/local/bin/docker-compose
-     
-     #install git
-     apt-get install -y git
-     
-     #install python
-     apt-get install -y python2.7 python-pip
-     
-     #install for vagrant user
-     chown vagrant.vagrant /home/vagrant/install.sh
-     chmod a+x /home/vagrant/install.sh     
-     su -c "cd ~ && ./install.sh" -s /bin/bash vagrant
+	chmod a+x /home/vagrant/install/* 
+	chmod a+x /home/vagrant/runPlayground.sh 
+	chown vagrant.vagrant /home/vagrant/install/*
+	chown vagrant.vagrant /home/vagrant/runPlayground.sh
+	
+	#install as root
+	/home/vagrant/install/install-global.sh
+	 
+	#install as vagrant user
+	su -c "cd ~ && ./install/install-vagrant-user.sh" -s /bin/bash vagrant
   SHELL
 end
