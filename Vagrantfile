@@ -72,15 +72,15 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-	chmod a+x /home/vagrant/install/* 
-	chmod a+x /home/vagrant/runPlayground.sh 
-	chown vagrant.vagrant /home/vagrant/install/*
-	chown vagrant.vagrant /home/vagrant/runPlayground.sh
-	
-	#install as root
-	/home/vagrant/install/install-global.sh
-	 
-	#install as vagrant user
-	su -c "cd ~ && ./install/install-vagrant-user.sh" -s /bin/bash vagrant
+    chmod a+x /home/vagrant/install/* 
+    chmod a+x /home/vagrant/runPlayground.sh 
+    chown vagrant.vagrant /home/vagrant/install/*
+    chown vagrant.vagrant /home/vagrant/runPlayground.sh
+    
+    #install as root
+    /home/vagrant/install/install-global.sh
+    
+    #install as vagrant user
+    su -c "cd ~ && ./install/install-vagrant-user.sh" -s /bin/bash vagrant
   SHELL
 end

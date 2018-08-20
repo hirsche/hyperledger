@@ -17,6 +17,11 @@ npm install -g generator-hyperledger-composer
 npm install -g yo
 npm install -g composer-playground
 
+#install go - for non-composer interactions
+add-apt-repository ppa:longsleep/golang-backports -y
+apt-get update
+apt-get install golang-go -y
+
 #fabric server install
 mkdir ~/fabric-dev-servers && cd ~/fabric-dev-servers
 
