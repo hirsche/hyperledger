@@ -29,5 +29,9 @@ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/pack
 tar -xvf fabric-dev-servers.tar.gz
 ./downloadFabric.sh
 
+#configure git
+git config --global core.autocrlf false
+git config --global core.longpaths true
+
 #TODO manually
 #see: https://hyperledger.github.io/composer/latest/installing/development-tools.html
