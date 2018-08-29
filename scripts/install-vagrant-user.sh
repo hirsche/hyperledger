@@ -17,11 +17,6 @@ npm install -g generator-hyperledger-composer
 npm install -g yo
 npm install -g composer-playground
 
-#install go - for non-composer interactions
-add-apt-repository ppa:longsleep/golang-backports -y
-apt-get update
-apt-get install golang-go -y
-
 #fabric server install
 mkdir ~/fabric-dev-servers && cd ~/fabric-dev-servers
 
@@ -32,6 +27,19 @@ tar -xvf fabric-dev-servers.tar.gz
 #configure git
 git config --global core.autocrlf false
 git config --global core.longpaths true
+
+#get fabric and fabric-sample sources
+mkdir -p /home/vagrant/go/src/github.com/hyperledger
+cd /home/vagrant/go/src/github.com/hyperledger
+git clone https://github.com/hyperledger/fabric-samples.git
+git clone https://github.com/hyperledger/fabric.git
+#and build tools
+export GOPATH=/home/vagrant/go/
+cd /home/vagrant/go/src/github.com/hyperledger/fabric
+make configtxgen cryptogen
+#TODO: sudo not possible without interaction
+sudo ln -s /home/vagrant/go/src/github.com/hyperledger/fabric/.build/bin/configtxgen
+sudo ln -s /home/vagrant/go/src/github.com/hyperledger/fabric/.build/bin/cryptogen
 
 #TODO manually
 #see: https://hyperledger.github.io/composer/latest/installing/development-tools.html

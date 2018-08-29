@@ -14,3 +14,8 @@ apt-get install -y git
 
 #install python
 apt-get install -y python2.7 python-pip
+
+#install go - for non-composer interactions
+add-apt-repository ppa:longsleep/golang-backports -y
+apt-get update
+apt-get install golang-go -y
