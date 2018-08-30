@@ -19,3 +19,26 @@ apt-get install -y python2.7 python-pip
 add-apt-repository ppa:longsleep/golang-backports -y
 apt-get update
 apt-get install golang-go -y
+
+#configure git
+git config --global core.autocrlf false
+git config --global core.longpaths true
+
+hyperledger_dir=/home/vagrant/go/src/github.com/hyperledger
+
+#get fabric and fabric-sample sources
+mkdir -p $hyperledger_dir
+cd $hyperledger_dir
+git clone https://github.com/hyperledger/fabric-samples.git
+git clone https://github.com/hyperledger/fabric.git
+
+#and build tools
+mkdir /home/vagrant/go/ 2>/dev/null
+export GOPATH=/home/vagrant/go/
+cd $hyperledger_dir/fabric
+make configtxgen cryptogen
+chown -R vagrant.vagrant /home/vagrant/go
+#TODO: sudo not possible without interaction
+cd /usr/bin
+ln -s /home/vagrant/go/src/github.com/hyperledger/fabric/.build/bin/configtxgen
+ln -s /home/vagrant/go/src/github.com/hyperledger/fabric/.build/bin/cryptogen
