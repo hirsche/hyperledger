@@ -8,8 +8,14 @@ PL=../lib/node_modules/composer-playground/cli.js
 rm -f nohup.out
 screen -d -m $NVM_BIN/node $NVM_BIN/$PL
 echo "waiting for playground to start ..."
-while ! nc -z $IP 8080; do
-  sleep 0.1 # wait for 1/10 of the second before check again
-done
 
-echo "playground launched."
+if [[ $IP =~ ^[0-9.]+$ ]]
+then
+  while ! nc -z $IP 8080; do
+    sleep 1 # wait for one second before check again
+  done
+  echo "playground launched."
+else
+  echo "Warning: Did not receive a valid IPv4 address: $IP"  
+  echo "         Payground might not run properly..."
+fi
