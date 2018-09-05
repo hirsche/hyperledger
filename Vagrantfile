@@ -1,8 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-Vagrant.configure("1") do |config|
-  config.vm.boot_mode = :gui
-end
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -32,11 +27,24 @@ Vagrant.configure("2") do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
+  #config.vm.network "public_network", ip: '172.27.241.229'
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network "public_network"
+  # your network.  
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
+  #config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+  config.vm.define 'interlace.chain' do |node|
+    node.vm.hostname = 'interlace.chain'
+    node.vm.network :public_network, ip: '172.27.241.229'
+    node.hostmanager.aliases = %w(interlace.chain)
+    for i in 1024..9000
+      node.vm.network :forwarded_port, guest: i, host: i
+    end
+  end
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -67,7 +75,7 @@ Vagrant.configure("2") do |config|
   
   # copy install
   config.vm.provision "file", source: "./scripts/install-global.sh", destination: "/home/vagrant/install/install-global.sh"
-  config.vm.provision "file", source: "./scripts/install-vagrant-user.sh", destination: "/home/vagrant/install/install-vagrant-user.sh"
+  config.vm.provision "file", source: "./scripts/install-main-user.sh", destination: "/home/vagrant/install/install-main-user.sh"
   config.vm.provision "file", source: "./scripts/runPlayground.sh", destination: "/home/vagrant/runPlayground.sh"
 
   # Enable provisioning with a shell script. Additional provisioners such as
@@ -83,6 +91,6 @@ Vagrant.configure("2") do |config|
     /home/vagrant/install/install-global.sh
     
     #install as vagrant user
-    su -c "cd ~ && ./install/install-vagrant-user.sh" -s /bin/bash vagrant
+    su -c "cd ~ && ./install/install-main-user.sh" -s /bin/bash vagrant
   SHELL
 end
