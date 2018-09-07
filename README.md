@@ -1,6 +1,6 @@
 # hyperledger
 
-Environment for running hyperledger fabric unsing vagrant and hyper-v as hyperviser. Operating system used is Unbuntu 16.04 LTS
+Environment for running and developing hyperledger fabric applications using vagrant to help provisioning and hyper-v as hyperviser. Operating system used is Unbuntu 16.04 LTS.
 
 ## Prerequisites
 
