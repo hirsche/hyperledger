@@ -35,16 +35,18 @@ Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
-  #config.hostmanager.ignore_private_ip = false
+  config.hostmanager.ignore_private_ip = true
   config.hostmanager.include_offline = true
   config.vm.define 'interlace.chain' do |node|
     node.vm.hostname = 'interlace.chain'
-    node.vm.network :public_network, ip: '172.27.241.229'
-    node.hostmanager.aliases = %w(interlace.chain)
+	node.hostmanager.aliases = %w(interlace.chain)
     for i in 1024..9000
       node.vm.network :forwarded_port, guest: i, host: i
     end
   end
+  
+  # hostmanager provisioner
+  config.vm.provision :hostmanager
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
