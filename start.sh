@@ -10,5 +10,3 @@ then
 else
   echo "Did not receive a valid IPv4 address: $IP"
 fi
-
-

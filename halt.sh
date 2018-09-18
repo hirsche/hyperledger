@@ -1,3 +1,3 @@
 #!/bin/bash
-vagrant ssh -c "~/fabric-dev-servers/stopFabric.sh"
+vagrant ssh -c "cd ~/InterlaceBlockchain/chain && ./stopFabric.sh"
 winpty vagrant halt

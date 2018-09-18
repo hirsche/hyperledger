@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
   config.hostmanager.include_offline = true
   config.vm.define 'interlace.chain' do |node|
     node.vm.hostname = 'interlace.chain'
-	node.hostmanager.aliases = %w(interlace.chain)
+    node.hostmanager.aliases = %w(interlace.chain)
     for i in 1024..9000
       node.vm.network :forwarded_port, guest: i, host: i
     end
