@@ -52,6 +52,8 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
+  # comment this line if you like to clone the repository directrly in the
+  # virtual machine
   config.vm.synced_folder "./InterlaceBlockchain", "/home/vagrant/InterlaceBlockchain"
 
   # Provider-specific configuration so you can fine-tune various

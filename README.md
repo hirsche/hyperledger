@@ -14,7 +14,13 @@ Environment for running and developing hyperledger fabric applications using vag
 
 `./start.sh`
 
-after startup the virtual machine should be accessible over hostname `interlace.chain` which is linking to localhost. Thus playground should be startble with `http://interlace.chain:8080` from any browser.
+After startup the virtual machine should be accessible over hostname `interlace.chain` which is linking to localhost. Thus playground should be startble with `http://interlace.chain:8080` from any browser.
+
+Run
+
+`vagrant ssh`
+
+in order to access the virtual machine.
 
 ## Stop
 
