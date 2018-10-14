@@ -4,14 +4,17 @@ Environment for running and developing hyperledger fabric applications using vag
 
 ## Prerequisites
 
-* Enable hyper-v
+* Install virtualbox
 * Install vagrant
-* Install git for Windows (including git bash)
+* Install git
+* call `git clone https://github.com/InterlaceProject/InterlaceBlockchain.git` in this directory
 * Install vagrant-hostmanager: `vagrant plugin install vagrant-hostmanager`
 
 ## Start
 
 `./start.sh`
+
+after startup the virtual machine should be accessible over hostname `interlace.chain` which is linking to localhost. Thus playground should be startble with `http://interlace.chain:8080` from any browser.
 
 ## Stop
 

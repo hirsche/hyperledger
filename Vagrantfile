@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
-  # your network.  
+  # your network.
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
       node.vm.network :forwarded_port, guest: i, host: i
     end
   end
-  
+
   # hostmanager provisioner
   config.vm.provision :hostmanager
 
@@ -52,14 +52,8 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  #config.vm.synced_folder "./InterlaceBlockchain", "/home/vagrant/InterlaceBlockchain",
-  #                        smb_username: "interlace", smb_password: "1nt3rlac3",
-  #                        type: "smb", mount_options: ["username=interlace","password=1nt3rlac3"]
+  config.vm.synced_folder "./InterlaceBlockchain", "/home/vagrant/InterlaceBlockchain"
 
-  config.vm.synced_folder ".", "/vagrant", 
-  	smb_username: "interlace", smb_password: "1nt3rlac3",
-	type: "smb", mount_options: ["username=interlace","password=1nt3rlac3"]
-  
   # Provider-specific configuration so you can fine-tune various
   config.vm.provider "hyperv" do |hv|
     # Display the hyperv when booting the machine
@@ -78,7 +72,7 @@ Vagrant.configure("2") do |config|
   # config.push.define "atlas" do |push|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
-  
+
   # copy install
   config.vm.provision "file", source: "./scripts/install-global.sh", destination: "/home/vagrant/install/install-global.sh"
   config.vm.provision "file", source: "./scripts/install-main-user.sh", destination: "/home/vagrant/install/install-main-user.sh"
@@ -88,14 +82,14 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    chmod a+x /home/vagrant/install/* 
-    chmod a+x /home/vagrant/runPlayground.sh 
+    chmod a+x /home/vagrant/install/*
+    chmod a+x /home/vagrant/runPlayground.sh
     chown vagrant.vagrant /home/vagrant/install/*
     chown vagrant.vagrant /home/vagrant/runPlayground.sh
-    
+
     #install as root
     /home/vagrant/install/install-global.sh
-    
+
     #install as vagrant user
     su -c "cd ~ && ./install/install-main-user.sh" -s /bin/bash vagrant
   SHELL
