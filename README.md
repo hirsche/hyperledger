@@ -1,6 +1,6 @@
 # hyperledger
 
-Environment for running and developing hyperledger fabric applications using vagrant. This branch uses virtualbox instead of hyper-v. Operating system used is Unbuntu 16.04 LTS.
+Environment for running and developing hyperledger fabric with composer applications using vagrant. This branch uses virtualbox instead of hyper-v. Operating system used is Unbuntu 16.04 LTS.
 
 ## Prerequisites
 
