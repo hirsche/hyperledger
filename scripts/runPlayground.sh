@@ -10,4 +10,8 @@ echo "waiting for playground to start ..."
 while ! nc -z interlace.chain 8080; do
   sleep 1 # wait for one second before check again
 done
+if ! [ $? -eq 0 ]; then
+    >&2 echo "Error starting playground."
+    exit 1
+fi
 echo "playground launched."

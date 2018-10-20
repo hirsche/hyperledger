@@ -10,4 +10,4 @@ winpty vagrant up --provider hyperv
 #else
 #  echo "Did not receive a valid IPv4 address: $IP"
 #fi
-vagrant ssh -c "~/runPlayground.sh interlace.chain"
+vagrant ssh -c "~/runPlayground.sh"
